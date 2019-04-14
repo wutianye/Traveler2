@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.traveler">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
+    <!-- 这个权限用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
@@ -10,16 +28,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.traveler.AllWeather"></activity>
-        <activity android:name="com.example.traveler.WeatherActivity" />
-        <activity android:name="com.example.traveler.user.User" />
-        <activity android:name="com.example.traveler.user.Resetpwd" />
-        <activity android:name="com.example.traveler.user.Register" />
-        <activity android:name="com.example.traveler.user.Login" />
-        <activity android:name="com.example.traveler.SearchDemo"/>
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="Y6wFm3kI5GjBcPlqHB6iCRDAIefgUb0X" />
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+
+        <activity android:name=".AllWeather" />
+        <activity android:name=".activity.WeatherActivity" />
+        <activity android:name=".user.User" />
+        <activity android:name=".user.Resetpwd" />
+        <activity android:name=".user.Register" />
+        <activity android:name=".user.Login" />
+        <activity android:name=".activity.SearchDemo" />
         <activity
-            android:name="com.example.traveler.MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name">
+
+        </activity>
+        <activity android:name=".activity.MapActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,31 +1,20 @@
-package com.example.traveler;
+package com.example.traveler.activity;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 
-import com.example.traveler.user.Login;
+import com.example.traveler.R;
 
 import pl.com.salsoft.sqlitestudioremote.SQLiteStudioService;
 
-import static com.example.traveler.R.drawable.ic_menu;
-
 public class MainActivity extends AppCompatActivity {
-    private NavigationView mNavView;
-    private DrawerLayout mDrawerLayout;
     private BottomNavigationView bottomNavigationView;
     private Fragment1 fragment1;
     private Fragment2 fragment2;
@@ -76,8 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
     private void initFragment() {
         fragment1 = new Fragment1();
         fragment2 = new Fragment2();
@@ -104,33 +91,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         initFragment();
-
-        //侧滑1
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_1);
-        setSupportActionBar(toolbar);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(ic_menu);
-        }
-        navView.setCheckedItem(R.id.nav_call);
-        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                mDrawerLayout.closeDrawers();
-                return true;
-            }
-        });
-        navView.getHeaderView(0).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this, Login.class
-                );
-                startActivity(intent);
-            }
-        });
         //打开SQLiteStudio
         SQLiteStudioService.instance().start(this);
     }
@@ -140,17 +100,5 @@ public class MainActivity extends AppCompatActivity {
         SQLiteStudioService.instance().stop();
         super.onDestroy();
     }
-    //侧滑2
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                break;
-            default:
-        }
-        return true;
-    }
-    //侧滑2
 
 }

@@ -1,4 +1,4 @@
-package com.example.traveler;
+package com.example.traveler.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.traveler.R;
 import com.example.traveler.gson.Forecast;
 import com.example.traveler.gson.Weather;
 import com.example.traveler.util.HttpUtil;

@@ -1,4 +1,4 @@
-package com.example.traveler;
+package com.example.traveler.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -14,6 +14,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.traveler.AllWeather;
+import com.example.traveler.R;
 import com.example.traveler.db.City;
 import com.example.traveler.db.County;
 import com.example.traveler.db.Province;

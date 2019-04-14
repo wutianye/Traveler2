@@ -1,8 +1,9 @@
-package com.example.traveler;
+package com.example.traveler.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.traveler.R;
 import com.example.traveler.searchview.ICallBack;
 import com.example.traveler.searchview.SearchView;
 import com.example.traveler.searchview.bCallBack;
