@@ -9,6 +9,7 @@
     <color name="grad">#ff3c3c3c</color>
     <color name="dividerColor">#BDBDBD</color>
     <color name="text">#212121</color>
+    <color name="gray_ee">#eeeeee</color>
     <color name="gray_dd">#dddddd</color>
     <color name="gray_50">#FAFAFA</color>
     <color name="gray_100">#F5F5F5</color>
