@@ -53,10 +53,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MapActivity"></activity>
-        <activity android:name=".activity.AttractionActivity">
-
-        </activity>
+        <activity android:name=".activity.MapActivity" />
+        <activity android:name=".activity.AttractionActivity"></activity>
+        <activity android:name=".activity.StarActivity"></activity>
     </application>
 
 </manifest>

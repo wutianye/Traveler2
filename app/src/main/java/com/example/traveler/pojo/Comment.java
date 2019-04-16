@@ -6,7 +6,7 @@ package com.example.traveler.pojo;
 
 public class Comment {
     private Long commentId;
-    private User publisher;
+    private String publisher;
     private String content;
 
     public Long getCommentId() {
@@ -17,11 +17,11 @@ public class Comment {
         this.commentId = commentId;
     }
 
-    public User getPublisher() {
+    public String getPublisher() {
         return publisher;
     }
 
-    public void setPublisher(User publisher) {
+    public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
 
@@ -33,7 +33,7 @@ public class Comment {
         this.content = content;
     }
 
-    public Comment(Long commentId, User publisher, String content) {
+    public Comment(Long commentId, String publisher, String content) {
         this.commentId = commentId;
         this.publisher = publisher;
         this.content = content;

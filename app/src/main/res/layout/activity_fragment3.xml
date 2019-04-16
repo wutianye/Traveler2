@@ -41,7 +41,7 @@
         android:orientation="vertical">
 
         <RelativeLayout
-            android:id="@+id/me_relative_class"
+            android:id="@+id/me_star"
             android:layout_width="match_parent"
             android:layout_height="50dp">
 
@@ -85,7 +85,7 @@
         android:orientation="vertical">
 
         <RelativeLayout
-            android:id="@+id/me_relative_money"
+            android:id="@+id/me_message"
             android:layout_width="match_parent"
             android:layout_height="50dp">
 

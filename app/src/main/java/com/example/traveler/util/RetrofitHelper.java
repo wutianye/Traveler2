@@ -27,7 +27,7 @@ public class RetrofitHelper {
                 readTimeout(30, TimeUnit.SECONDS).
                 writeTimeout(30, TimeUnit.SECONDS).build();
 
-        Retrofit mretrofit = retrofit.baseUrl("http://192.168.2.138:8080/")
+        Retrofit mretrofit = retrofit.baseUrl("http://192.168.43.124:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

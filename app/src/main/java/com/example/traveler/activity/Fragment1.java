@@ -46,6 +46,7 @@ import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -111,8 +112,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         imageList.add(R.drawable.tu1);
         imageList.add(R.drawable.tu2);
         imageList.add(R.drawable.tu3);
-
-
         recyclerView.setLayoutManager(layoutManager);
         adapter = new BaseQuickAdapter<Attraction, BaseViewHolder>(R.layout.recycler_home, new ArrayList<Attraction>()) {
             @Override
@@ -121,8 +120,15 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                         .setText(R.id.recycler_home_peoplenum, item.getP_num())
                         .setText(R.id.recycler_home_open, item.getOpen_time())
                         .setText(R.id.recycler_home_close, item.getClose_time());
-                ImageView imageView = view.findViewById(R.id.recycler_home_img);
-                Glide.with(getActivity()).load(item.getImageurl()).into(imageView);
+                ImageView imageView = helper.getView(R.id.recycler_home_img);
+                String u = "";
+                try {
+                    u = java.net.URLDecoder.decode(item.getImageurl(), "UTF-8");
+                    Log.d("转化的url", u);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                Glide.with(getActivity()).load(u).into(imageView);
 
             }
         };
@@ -132,6 +138,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                 Intent intent = new Intent(getActivity(), AttractionActivity.class);
                 Attraction attraction = (Attraction) adapter.getItem(position);
                 intent.putExtra("attraction", attraction);
+                startActivity(intent);
             }
         });
         recyclerView.setAdapter(adapter);
@@ -158,6 +165,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 //                        Attraction s = new Gson().fromJson(jsonArray.getJSONObject(i).toString(),Attraction.class);
 //                        attractionsList.add(s);
 //                    }
+                    Log.d("num", "此数组一共有" + attractionsList.size());
                     adapter.setNewData(attractionsList);
                 } catch (JSONException | IOException e) {
                     e.printStackTrace();
