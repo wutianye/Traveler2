@@ -24,6 +24,7 @@ import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.traveler.R;
@@ -65,18 +66,11 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     ImageView img_today;
     ImageView search;
     Map<String, Integer> weather_icon_list = new HashMap<String, Integer>();
-    private RelativeLayout weather_layout;
     private View view;
     private MyLocationListener myListener = new MyLocationListener();
     private String p, c, d;
     private BaseQuickAdapter<Attraction, BaseViewHolder> adapter;
     private RecyclerView recyclerView;
-    /**
-     * 获取省市列表，传入weatherId
-     */
-    private List<Province> provinceList;
-    private List<City> cityList;
-    private List<County> countyList;
     private Province selectedProvince;
     private City selectedCity;
     private String WeatherId;
@@ -124,10 +118,22 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             @Override
             protected void convert(BaseViewHolder helper, Attraction item) {
                 helper.setText(R.id.recycler_home_tv, item.getAttr_name())
-                        .setImageResource(R.id.recycler_home_img, imageList.get((int) item.getId()));
+                        .setText(R.id.recycler_home_peoplenum, item.getP_num())
+                        .setText(R.id.recycler_home_open, item.getOpen_time())
+                        .setText(R.id.recycler_home_close, item.getClose_time());
+                ImageView imageView = view.findViewById(R.id.recycler_home_img);
+                Glide.with(getActivity()).load(item.getImageurl()).into(imageView);
 
             }
         };
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(getActivity(), AttractionActivity.class);
+                Attraction attraction = (Attraction) adapter.getItem(position);
+                intent.putExtra("attraction", attraction);
+            }
+        });
         recyclerView.setAdapter(adapter);
     }
 
@@ -143,10 +149,9 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
                     return;
                 try {
                     JSONObject jsonObject = new JSONObject(response.body().string());
-
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
                     Log.d("jso", "" + jsonArray);
-                    List<Attraction> attractionsList = new ArrayList<>();
+                    List<Attraction> attractionsList;
                     attractionsList = new Gson().fromJson(jsonArray.toString(), new TypeToken<List<Attraction>>() {
                     }.getType());
 //                    for(int i=0;i<jsonArray.length();i++){
@@ -220,7 +225,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     }
 
     private void initWeather() {
-        weather_layout = view.findViewById(R.id.weather_layout);
+        RelativeLayout weather_layout = view.findViewById(R.id.weather_layout);
         weather_layout.setOnClickListener(this);
         search = view.findViewById(R.id.btn_search);
         search.setOnClickListener(this);
@@ -237,7 +242,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.weather_layout:
                 Intent intent = new Intent(getActivity(), WeatherActivity.class);
-                intent.putExtra("weather_id", 1);
+                intent.putExtra("weather_id", WeatherId);
                 startActivity(intent);
                 break;
 
@@ -264,7 +269,10 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     }
 
     private void queryProvinces() {
-        provinceList = DataSupport.findAll(Province.class);
+        /*
+      获取省市列表，传入weatherId
+     */
+        List<Province> provinceList = DataSupport.findAll(Province.class);
         if (provinceList.size() > 0) {
             for (Province province : provinceList) {
                 if (p.contains(province.getProvinceName())) {
@@ -279,7 +287,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     }
 
     private void queryCities() {
-        cityList = DataSupport.where("provinceid = ?", String.valueOf(selectedProvince.getId())).find(City.class);
+        List<City> cityList = DataSupport.where("provinceid = ?", String.valueOf(selectedProvince.getId())).find(City.class);
         if (cityList.size() > 0) {
             for (City city : cityList) {
                 if (c.contains(city.getCityName())) {
@@ -298,7 +306,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
      * 查询选中市内所有的县，优先从数据库查询，如果没有查询到再去服务器上查询。
      */
     private void queryCounties() {
-        countyList = DataSupport.where("cityid = ?", String.valueOf(selectedCity.getId())).find(County.class);
+        List<County> countyList = DataSupport.where("cityid = ?", String.valueOf(selectedCity.getId())).find(County.class);
         if (countyList.size() > 0) {
             for (County county : countyList) {
                 if (d.contains(county.getCountyName())) {

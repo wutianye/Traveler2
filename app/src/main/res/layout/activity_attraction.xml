@@ -52,6 +52,7 @@
             android:layout_height="30dp">
 
             <TextView
+                android:id="@+id/attraction_address"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"

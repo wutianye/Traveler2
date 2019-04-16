@@ -1,7 +1,9 @@
 package com.example.traveler.pojo;
 
 
-public class Attraction {
+import java.io.Serializable;
+
+public class Attraction implements Serializable {
 
     private long id;
 
